@@ -68,7 +68,7 @@ void GameScene::Update() {
 	//	// ビュープロジェクションの転送
 	//	viewProjection_.TransferMatrix();
 	//}
-	//
+	////
 
 
 	#ifdef _DEBUG

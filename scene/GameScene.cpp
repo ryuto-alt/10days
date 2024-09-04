@@ -1,12 +1,16 @@
 #include "GameScene.h"
-#include "TextureManager.h"
 #include "Mymath.h"
+#include "TextureManager.h"
 
 #include <cassert>
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+
+	delete debugCamera_;
+	delete mapChipField_;
+}
 
 void GameScene::Initialize() {
 
@@ -29,13 +33,11 @@ void GameScene::Initialize() {
 	GenerateBlcoks();
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
-
 }
 
 void GameScene::Update() {
 
-
-// 縦横ブロック更新
+	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
 			if (!worldTransformBlockYoko)
@@ -50,9 +52,8 @@ void GameScene::Update() {
 		}
 	}
 
-
-	//デバッグカメラ
-	//  カメラ処理
+	// デバッグカメラ
+	//   カメラ処理
 	if (isDebugCameraActive_) {
 		// デバッグカメラの更新
 		debugCamera_->Update();
@@ -60,18 +61,17 @@ void GameScene::Update() {
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
-	} 
-	//else {
+	}
+	// else {
 	//	// ビュープロジェクション行列の更新と転送
 	//	viewProjection_.matView = cameraController_->GetViewProjection().matView;
 	//	viewProjection_.matProjection = cameraController_->GetViewProjection().matProjection;
 	//	// ビュープロジェクションの転送
 	//	viewProjection_.TransferMatrix();
-	//}
+	// }
 	////
 
-
-	#ifdef _DEBUG
+#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
 		if (isDebugCameraActive_ == true)
 			isDebugCameraActive_ = false;
@@ -107,10 +107,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	/// 
-	/// 
-	/// 
-	
+	///
+	///
+	///
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {

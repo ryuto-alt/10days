@@ -7,6 +7,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "MapChip.h"
+#include "DebugCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -39,10 +41,31 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+
+	void GenerateBlcoks();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	Model* modelBlock_ = nullptr;
+
+	// ワールドトランスフォーム
+	WorldTransform worldTransform_;
+	// ビュープロジェクション
+	ViewProjection viewProjection_;
+
+	//マップチップ
+	MapChipField* mapChipField_;
+
+	// 縦横ブロック配列
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+
+	// デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
+
+	// デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
